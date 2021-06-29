@@ -103,7 +103,7 @@ public class BaseLeadsTest extends BaseTest{
                 .when().delete("v2/leads/" + id);
 
         boolean isExists = false;
-        if (resp.statusCode()==200)
+        if (resp.statusCode()==204)
         {
             isExists=true;
         }

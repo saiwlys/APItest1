@@ -5,6 +5,10 @@ import models.Lead;
 import models.TestResult;
 import org.junit.Test;
 
+import java.util.Objects;
+
+import static org.junit.Assert.assertThat;
+
 public class LeadTest extends BaseLeadsTest{
 
     @Test
@@ -30,11 +34,20 @@ public class LeadTest extends BaseLeadsTest{
         r=updateLead(leadTest);
         r.httpResponse.then().statusCode(200);
 
-        // Get updated Lead object (with ID) from results the last endpoint execution
-        leadTest=r.objectResponse;
+        // Get object to verify address
+        TestResult<Response,Lead> r1 = getLead(leadTest.getId());
+        r1.httpResponse.then().statusCode(200);
+        Lead updatedLead = r1.objectResponse;
+
+        // Verify content of both objects(before and after updates)
+        org.junit.Assert.assertTrue(Objects.equals(leadTest.getAddress().getCity(), updatedLead.getAddress().getCity()));
+        org.junit.Assert.assertTrue(Objects.equals(leadTest.getAddress().getCountry(), updatedLead.getAddress().getCountry()));
+        org.junit.Assert.assertTrue(Objects.equals(leadTest.getAddress().getLine1(), updatedLead.getAddress().getLine1()));
+        org.junit.Assert.assertTrue(Objects.equals(leadTest.getAddress().getPostal_code(), updatedLead.getAddress().getPostal_code()));
+        org.junit.Assert.assertTrue(Objects.equals(leadTest.getAddress().getState(), updatedLead.getAddress().getState()));
 
         // Delete test Lead object
-        TestResult<Response,Boolean> r1=deleteLead(leadTest.getId());
-        r1.httpResponse.then().statusCode(204);
+        TestResult<Response,Boolean> r2 = deleteLead(leadTest.getId());
+        r2.httpResponse.then().statusCode(204);
     }
 }
