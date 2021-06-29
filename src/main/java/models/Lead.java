@@ -8,9 +8,7 @@ public class Lead {
     private String last_name;
     private Address address;
     private String organization_name;
-
-
-
+    
     public int getId() {
         return id;
     }

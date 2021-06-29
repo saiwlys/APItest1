@@ -1,12 +1,13 @@
 package models;
 
 public class Address {
-    public String line1;
-    public String city;
-    public String postal_code;
-    public String state;
-    public String country;
+    private String line1;
+    private String city;
+    private String postal_code;
+    private String state;
+    private String country;
 
+    // Default constructor added for deserializing
     public Address()
     {
 
@@ -19,9 +20,7 @@ public class Address {
         this.postal_code=postal_code;
         this.state=state;
         this.country=country;
-
     }
-
 
     public String getLine1() {
         return line1;
